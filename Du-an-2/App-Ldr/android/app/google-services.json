@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "818888655920",
+    "firebase_url": "https://homeldr-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "homeldr",
+    "storage_bucket": "homeldr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818888655920:android:8ae1db323a4b948430d9f5",
+        "android_client_info": {
+          "package_name": "com.example.app_ldr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB05twXNalZpnu7FnI_PigTUGAC8NNRRi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
