@@ -21,9 +21,13 @@ class _AddressScreenState extends State<AddressScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            IconButton(onPressed: (){
+              Navigator.pop(context, true);
+            }, icon: Icon(Iconsax.arrow_left)),
             Text("Addresses", style: const TextStyle(fontSize: 25, color: Colors.black87, fontWeight: FontWeight.bold),),
             IconButton(onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>AddUserAddressScreen(token: widget.token, user_id: widget.user_id)));

@@ -2,6 +2,7 @@ import 'package:coffee_shop_test/data/models/user.dart';
 import 'package:coffee_shop_test/data/viewmodels/user_viewmodels.dart';
 import 'package:coffee_shop_test/ui/screens/login/login_screen.dart';
 import 'package:coffee_shop_test/ui/screens/user/widgets/edit_user_iconbutton.dart';
+import 'package:coffee_shop_test/ui/shared/widget/my_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,7 @@ class _EditUserState extends State<UpdateUserScreen> {
   final txtGenderController = TextEditingController();
   final txtBirthController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  MySnackbar mySnackbar = MySnackbar();
 
   Future<Map<String, dynamic>> getUserData() async {
     final result = await userViewModel.userProfile(widget.token);
@@ -160,6 +162,9 @@ class _EditUserState extends State<UpdateUserScreen> {
                               ),
                               EditUserIconbutton(
                                 hander: () async {
+                                  if(mySnackbar.checkInput(txtFullNameController, context, "full name")==false){
+                                    return;
+                                  }
                                   final user = User(
                                     fullname: txtFullNameController.text,
                                   );
@@ -175,12 +180,19 @@ class _EditUserState extends State<UpdateUserScreen> {
                                     Navigator.pop(context);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text("Cập nhật thành công!"),
+                                        content: Text("Updata full name success"),
+                                      ),
+                                    );
+                                    fetchData = getUserData();
+                                    setState(() {});
+                                  }
+                                  else{
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("Update full name failure"),
                                       ),
                                     );
                                   }
-                                  fetchData = getUserData();
-                                  setState(() {});
                                 },
                                 txtController: txtFullNameController,
                                 title: "Full name",
@@ -208,6 +220,9 @@ class _EditUserState extends State<UpdateUserScreen> {
                               ),
                               EditUserIconbutton(
                                 hander: () async {
+                                  if(mySnackbar.checkInput(txtNameController, context, "name")==false){
+                                    return;
+                                  }
                                   final user = User(
                                     name: txtNameController.text,
                                   );
@@ -318,7 +333,6 @@ class _EditUserState extends State<UpdateUserScreen> {
                                   final user = User(
                                     email: txtEmailController.text,
                                   );
-
                                   final userDataUpdate = await userViewModel
                                       .putUserUpdate(
                                     userData["id"],
@@ -376,7 +390,7 @@ class _EditUserState extends State<UpdateUserScreen> {
                                 ),
                               ),
                               Text(
-                                "${userData["gender"]}",
+                                "${(userData["gender"])?"Male":"female"}",
                                 style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.black87,
@@ -385,8 +399,13 @@ class _EditUserState extends State<UpdateUserScreen> {
                               ),
                               EditUserIconbutton(
                                 hander: () async {
+
+                                  if(txtGenderController.text != "Male" && txtGenderController.text != "Female"){
+                                    return ScaffoldMessenger(child: SnackBar(content: Text("Not in (Male and Femele)")));
+                                  }
+
                                   final user = User(
-                                    fullname: txtFullNameController.text,
+                                    fullname: txtGenderController.text,
                                   );
                                   await userViewModel.putUserUpdate(userData["id"], widget.token, user);
 
@@ -400,7 +419,7 @@ class _EditUserState extends State<UpdateUserScreen> {
                                     Navigator.pop(context);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text("Cập nhật thành công!"),
+                                        content: Text("Update gender success!"),
                                       ),
                                     );
                                   }
@@ -432,6 +451,7 @@ class _EditUserState extends State<UpdateUserScreen> {
                               ),
                               EditUserIconbutton(
                                 hander: () async {
+
                                   final user = User(
                                     birth: txtBirthController.text,
                                   );

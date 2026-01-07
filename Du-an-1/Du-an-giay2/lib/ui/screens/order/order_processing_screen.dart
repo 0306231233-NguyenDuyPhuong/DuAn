@@ -63,7 +63,6 @@ class _OrderprocessingviewState extends State<OrderProcessingScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText(title: "${widget.orders["shipping_address"]}", size: 20, color: Colors.black87, fontWeight: FontWeight.bold,),
                     ListCartOverview(cartItems: orderDetailData, user_id: widget.user_id, token: widget.token, onChanged: (p1){}),
                   ],
                 );

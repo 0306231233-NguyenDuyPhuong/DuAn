@@ -250,14 +250,19 @@ class _OrderReviewState extends State<OrderReviewScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                     InkWell(
-                                      onTap: () {
-                                        Navigator.push(context,
+                                      onTap: () async{
+                                       final result = await Navigator.push(context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     AddressScreen(
                                                       token: widget.token,
                                                       user_id: widget
                                                           .user_id,)));
+                                       if(result){
+                                          userAddressViewmodel.getAddress(key);
+                                          setState(() {
+                                          });
+                                       }
                                       },
                                       child: MyText(
                                         title: "Change",
